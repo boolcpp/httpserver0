@@ -24,7 +24,7 @@ public:
 	void TakeMsg();
 private:
 	//std::string writeErr(int);
-	int err;
+	int result;
 	int WSALERR;
 	/*WSADATA wsadata;
 	WSADATA ws();*/

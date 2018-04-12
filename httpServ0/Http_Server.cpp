@@ -72,39 +72,44 @@ HttpServer::HttpServer(std::string StrIP, std::string StrPort)
 
 void HttpServer::TakeMsg()
 {
-	for (;;)
+	client_socket = accept(CreateSock, NULL, NULL);
+	if (client_socket == -1)
 	{
-		client_socket = accept(CreateSock, NULL, NULL);
-		if (client_socket == -1)
-		{
-			WSALERR = WSAGetLastError();
-			printf("error = %d\n", WSALERR);
-		}
-		err = recv(client_socket, buf, max_client_buffer_size, 0); //sizeof(buf), 0);
-		if (err == SOCKET_ERROR)
-		{
-			WSALERR = WSAGetLastError();
-			printf("recv failed with code = %d\n", WSALERR);
-		}
-		else if (err == 0)
-		{
-			printf("Connection closed\n");
-		}
-		else if (err > 0)
-		{
-			buf[err] = '\0';
-			response_body << "<title>Test C++ HTTP Server</title>\n <h1>Test page</h1>\n";
-			response << "HTTP/1.1 200 OK\r\n"
-				<< "Version: HTTP/1.1\r\n"
-				<< "Content-Type: text/html; charset=utf-8\r\n"
-				<< "\r\n\r\n"
-				<< response_body.str()
-				<< "Content-Length: " << response_body.str().length();
-			send(client_socket, response.str().c_str(), response.str().length(), 0);
-		}
-		
+		WSALERR = WSAGetLastError();
+		printf("error = %d\n", WSALERR);
 	}
-	
+	result = recv(client_socket, buf, max_client_buffer_size, 0); //sizeof(buf), 0);
+	if (result == SOCKET_ERROR)
+	{
+		WSALERR = WSAGetLastError();
+		printf("recv failed with code = %d\n", WSALERR);
+	}
+	else if (result == 0)
+	{
+		printf("Connection closed\n");
+	}
+	else if (result > 0)
+	{
+		buf[result] = '\0';
+		response_body << "<title>Test C++ HTTP Server</title>\n <h1>Test page</h1>\n";
+		response << "HTTP/1.1 200 OK\r\n"
+			<< "Version: HTTP/1.1\r\n"
+			<< "Content-Type: text/html; charset=utf-8\r\n"
+			<< "\r\n\r\n"
+			<< response_body.str()
+			<< "Content-Length: " << response_body.str().length();
+		int n = 0;
+		n = response_body.str().length();
+		result = send(client_socket, response.str().c_str(), response.str().length(), 0);
+		if (result == SOCKET_ERROR)
+		{
+			WSALERR = WSAGetLastError();
+			printf("send error: %d\n", WSALERR);
+		}
+		closesocket(client_socket);
+		response_body.str("");
+		response.str("");
+	}
 }
 
 void HttpServer::Send() {
