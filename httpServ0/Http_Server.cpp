@@ -74,8 +74,8 @@ void HttpServer::TakeMsg()
 {
 	for (;;)
 	{
-		err = accept(CreateSock, NULL, NULL);
-		if (err == -1)
+		client_socket = accept(CreateSock, NULL, NULL);
+		if (client_socket == -1)
 		{
 			WSALERR = WSAGetLastError();
 			printf("error = %d\n", WSALERR);
