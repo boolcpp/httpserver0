@@ -94,12 +94,18 @@ void HttpServer::TakeMsg()
 		response_body// << "<head><title>Test C++ HTTP Server</title>\n <h1>Test page\n </h1>\n</head><body><form><button>press me</button></form></body>";
 			<< "<!DOCTYPE html>"
 			<<"<html><head><title> webcam access in HTML 5</title></head><body><h1>Test page\n</h1><form><button>press me</button></form></body></html>";
+
 		response << "HTTP/1.1 200 OK\r\n"
 			<< "Version: HTTP/1.1\r\n"
 			<< "Content-Type: text/html; charset=utf-8\r\n"
 			<< "\r\n\r\n"
+
 			<< response_body.str();
 		//	<< "Content-Length: " << response_body.str().length();
+
+			//<< response_body.str()
+			//<< "Content-Length: " << response_body.str().length();
+
 		int n = 0;
 		n = response_body.str().length();
 		result = send(client_socket, response.str().c_str(), response.str().length(), 0);
