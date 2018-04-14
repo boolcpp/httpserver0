@@ -1,14 +1,14 @@
-// Для корректной работы freeaddrinfo в MinGW
-// Подробнее: http://stackoverflow.com/a/20306451
+// Г„Г«Гї ГЄГ®Г°Г°ГҐГЄГІГ­Г®Г© Г°Г ГЎГ®ГІГ» freeaddrinfo Гў MinGW
+// ГЏГ®Г¤Г°Г®ГЎГ­ГҐГҐ: http://stackoverflow.com/a/20306451
 #define _WIN32_WINNT 0x501
-
+//incoming commit 01
 #include <WinSock2.h>
 #include <WS2tcpip.h>
 #include "Http_Server.h"
 //#include <opencv2\core\core.hpp>
 
-// Необходимо, чтобы линковка происходила с DLL-библиотекой
-// Для работы с сокетам
+// ГЌГҐГ®ГЎГµГ®Г¤ГЁГ¬Г®, Г·ГІГ®ГЎГ» Г«ГЁГ­ГЄГ®ГўГЄГ  ГЇГ°Г®ГЁГ±ГµГ®Г¤ГЁГ«Г  Г± DLL-ГЎГЁГЎГ«ГЁГ®ГІГҐГЄГ®Г©
+// Г„Г«Гї Г°Г ГЎГ®ГІГ» Г± Г±Г®ГЄГҐГІГ Г¬
 #pragma comment(lib, "Ws2_32.lib")
 #include <string>
 #include <sstream>
@@ -27,10 +27,10 @@ HttpServer::HttpServer(std::string StrIP, std::string StrPort)
 	//WSAStartup(MAKEWORD(2, 2), &ws());
 	ZeroMemory(&hints, sizeof(hints));
 
-	hints.ai_family = AF_INET;		 // AF_INET определяет, что будет использоваться сеть для работы с сокетом
-	hints.ai_socktype = SOCK_STREAM; // Задаем потоковый тип сокета
-	hints.ai_protocol = IPPROTO_TCP; // Используем протокол TCP
-	hints.ai_flags = AI_PASSIVE;	 // Сокет будет биндиться на адрес, чтобы принимать входящие соединения
+	hints.ai_family = AF_INET;		 // AF_INET Г®ГЇГ°ГҐГ¤ГҐГ«ГїГҐГІ, Г·ГІГ® ГЎГіГ¤ГҐГІ ГЁГ±ГЇГ®Г«ГјГ§Г®ГўГ ГІГјГ±Гї Г±ГҐГІГј Г¤Г«Гї Г°Г ГЎГ®ГІГ» Г± Г±Г®ГЄГҐГІГ®Г¬
+	hints.ai_socktype = SOCK_STREAM; // Г‡Г Г¤Г ГҐГ¬ ГЇГ®ГІГ®ГЄГ®ГўГ»Г© ГІГЁГЇ Г±Г®ГЄГҐГІГ 
+	hints.ai_protocol = IPPROTO_TCP; // Г€Г±ГЇГ®Г«ГјГ§ГіГҐГ¬ ГЇГ°Г®ГІГ®ГЄГ®Г« TCP
+	hints.ai_flags = AI_PASSIVE;	 // Г‘Г®ГЄГҐГІ ГЎГіГ¤ГҐГІ ГЎГЁГ­Г¤ГЁГІГјГ±Гї Г­Г  Г Г¤Г°ГҐГ±, Г·ГІГ®ГЎГ» ГЇГ°ГЁГ­ГЁГ¬Г ГІГј ГўГµГ®Г¤ГїГ№ГЁГҐ Г±Г®ГҐГ¤ГЁГ­ГҐГ­ГЁГї
 
 	err = getaddrinfo(StrIP.c_str(), StrPort.c_str(), &hints, &addr);
 	if (err != 0)
