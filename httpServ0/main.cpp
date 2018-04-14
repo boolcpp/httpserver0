@@ -207,12 +207,12 @@ int main()
 //HttpServer Serv("192.168.0.122", "8000");
 	
 	HttpServer Server0("192.168.0.122", "8000");
-	Server0.TakeMsg();
-	//for (;;)
-	//{
-	//	Server0.TakeMsg();
+	//Server0.TakeMsg();
+	for (;;)
+	{
+		Server0.TakeMsg();
 	//	Server0.Send();
-	//}
+	}
 
     return 0;
 }

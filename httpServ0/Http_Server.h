@@ -26,6 +26,7 @@ private:
 	//std::string writeErr(int);
 	int err;
 	int WSALERR;
+	int result;
 	/*WSADATA wsadata;
 	WSADATA ws();*/
 	struct addrinfo* addr = NULL;
