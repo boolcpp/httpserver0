@@ -1,0 +1,16 @@
+<HTML>
+<HEAD>
+<META NAME="GENERATOR" Content="Microsoft Visual Studio">
+<TITLE></TITLE>
+</HEAD>
+<BODY>
+    <video id="vid" autoplay></video>
+    <script>
+        navigator.mediaDevices.getUserMedia(
+            { video: {} }
+        ).then(stream => {
+			document.getElementById("vid").srcObject = stream;
+		})
+    </script>
+</BODY>
+</HTML>
