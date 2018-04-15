@@ -24,6 +24,9 @@
     <ClCompile Include="Http_Server.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="FileRead.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="base64.h">
@@ -32,5 +35,13 @@
     <ClInclude Include="Http_Server.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="FIleRead.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Page0.htm">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
 </Project>
