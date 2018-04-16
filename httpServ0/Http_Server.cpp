@@ -92,7 +92,8 @@ void HttpServer::TakeMsg()
 	}
 	else if (result > 0)
 	{
-		char *file = "Page0.htm";
+		//char *file = "Page0.htm";
+		char *file = "HTMLPage1.htm"; 
 		response_body = readHTML(file);
 		
 		response << "HTTP/1.1 200 OK\r\n"
